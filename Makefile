@@ -6,7 +6,7 @@
 #    By: fmorales <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/10/12 11:02:45 by fmorales          #+#    #+#              #
-#    Updated: 2015/10/12 12:13:53 by fmorales         ###   ########.fr        #
+#    Updated: 2015/10/16 11:31:21 by fmorales         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -15,7 +15,8 @@ DIRSRC		=	./srcs/
 DIROBJ		=	./obj/
 INC 		=	includes
 SRC			=	ft_bzero.s
-OBJ			=	$(SRC:.c=.o)
+OBJ			=	$(SRC:.s=.o)
+OBJ_NAME    =   $(addprefix $(DIROBJ),$(OBJ))
 FLAGS		=	-f macho64
 CC			=	nasm
 RM			=	/bin/rm -f
@@ -24,13 +25,13 @@ OUTPUT		=	$(shell find . | grep "\~")
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
+$(NAME): $(OBJ_NAME)
+	ar rc $(NAME) $(OBJ_NAME)
 	ranlib $(NAME)
 	@echo "libftASM : done"
 
 $(DIROBJ)%.o: $(DIRSRC)%.s
-	mkdir -p $(DIRSRC)
+	mkdir -p $(DIROBJ)
 	$(CC) $(FLAGS) -o $@ $< -I $(INC)
 
 clean:
