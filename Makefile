@@ -11,6 +11,7 @@
 #******************************************************************************#
 
 NAME		=	libfts.a
+TEST        =   libftASM
 DIRSRC		=	./srcs/
 DIROBJ		=	./obj/
 INC 		=	includes
@@ -43,12 +44,14 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-	@$(ECHO) "LibftASM deleted"
+	$(RM) $(TEST)
+	$(RM) main.o
+	@$(ECHO) "LibftASM and tests deleted"
 
 re: fclean all
 
 test:
 	@gcc -Wall -Wextra -Werror -c main.c
-	@gcc -o libftASM main.o libfts.a
+	@gcc -o $(TEST) main.o libfts.a
 
 .PHONY:     all clean fclean re test
