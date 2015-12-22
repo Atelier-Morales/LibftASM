@@ -14,7 +14,10 @@ NAME		=	libfts.a
 DIRSRC		=	./srcs/
 DIROBJ		=	./obj/
 INC 		=	includes
-SRC			=	ft_bzero.s
+SRC			=	ft_isdigit.s ft_isalpha.s ft_isalnum.s ft_isprint.s \
+				ft_isascii.s ft_toupper.s ft_tolower.s ft_bzero.s \
+				ft_strlen.s ft_puts.s ft_memset.s ft_memcpy.s ft_strdup.s \
+				ft_cat.s ft_strcat.s
 OBJ			=	$(SRC:.s=.o)
 OBJ_NAME    =   $(addprefix $(DIROBJ),$(OBJ))
 FLAGS		=	-f macho64
@@ -43,3 +46,9 @@ fclean: clean
 	@$(ECHO) "LibftASM deleted"
 
 re: fclean all
+
+test:
+	@gcc -Wall -Wextra -Werror -c main.c
+	@gcc -o libftASM main.o libfts.a
+
+.PHONY:     all clean fclean re test
